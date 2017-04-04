@@ -30,5 +30,5 @@ echo "[$(date)] Starting Fixing encoding raw data.." >> ./log_output/results.txt
 iconv -f ascii -t utf-8//TRANSLIT -c $log > $log_utf8_filename
 echo "[$(date)] Finished cleaning batch data.." >> ./log_output/results.txt
 
-# /Users/Angel/anaconda/bin/python ./src/detective.py $log_utf8_filename ./log_output/hosts.txt ./log_output/hours.txt ./log_output/resources.txt ./log_output/blocked.txt
+python ./src/detective.py $log_utf8_filename ./log_output/hosts.txt ./log_output/hours.txt ./log_output/resources.txt ./log_output/blocked.txt
 

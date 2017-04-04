@@ -1,11 +1,16 @@
 # Table of Contents
 
-* [How to use this code](README.md#how-to-use)
-* [Details of implementation so far](README.md#details-of-my-own-implementation)
-* [My notes about Requirements](README.md#understanding-requirements)
+* [How to use](README.md#how-to-use)
+* [Requirements](README.md#requirements)
+* [My goals and features](README.md#goal-in-my-code)
 * [Personal Notes](README.md#personal-notes)
-
-## How to use
+* [UML](README.md#basic-uml)
+* [Event and Error Log files](README.md#log)
+* [UML](README.md#basic-uml)
+* [Sanitizing data](README.md#sanitizing-data)
+* [Testing](README.md#sanitizing-data)
+* [Personal notes](README.md#sanitizing-data)
+* [TODOS](README.md#future-ideas)
 
 From root folder run as:
 

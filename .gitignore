@@ -1,1 +1,6 @@
 .idea
+./log_output/blocked.txt
+./log_output/hosts.txt
+./log_output/resources.txt
+./log_output/hours.txt
+./insight_testsuite
