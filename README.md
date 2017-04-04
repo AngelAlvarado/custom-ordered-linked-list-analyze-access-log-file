@@ -12,6 +12,8 @@
 * [Personal notes](README.md#sanitizing-data)
 * [TODOS](README.md#future-ideas)
 
+## How to use
+
 From root folder run as:
 
 `$ ./run.sh`
