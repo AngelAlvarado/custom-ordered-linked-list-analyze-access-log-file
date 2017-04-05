@@ -32,8 +32,8 @@ def main():
         error.write(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + ' Error reading file and during analysis \n')
         error.write(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + str(tb))
     finally:
-        print(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + 'Finalizing Analysis ')
-        events.write(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + ' Analysis finalizing  \n')
+        print(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + ' Analysis finalized. ')
+        events.write(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + ' Analysis finalized.  \n')
 
 
 class Node:
@@ -343,49 +343,6 @@ class Structure:
             # print("Warning: line does not have HTTP protocol version", line)
             # Skip line and report
         return resource
-
-    def sort_using_dictionary(self):
-        """
-        @deprecated
-        Temporary solution using collections ~ dictionaries
-        # from collections import defaultdict
-        # hosts_hash = defaultdict(int)
-        :return: print 10 fist elements to stdout
-        """
-        i = 0
-        for w in sorted(self.hosts_hash, key=self.hosts_hash.get, reverse=True):
-            print(w, ',', self.hosts_hash[w])
-            i += 1
-            if i > 9:
-                return
-
-    def keying_hosts_list(self):
-        """
-        @deprecated
-        Not using regular dics.
-        :return:
-        """
-        for k, v in self.hosts_hash.items():
-            self.number_requests.append(v)
-            self.keyed_request_number_hash[v] = k
-
-    def order_quick_sort(self, num_request):
-        """
-        @deprecated: it will get tricky to sort a list
-        (with the total number of requests) and match its metadata(e.g. domain) later on.
-
-        Note it's possible to use the built-in sorted() method.
-        The sorting method is implemented since it's basically a requirement.
-
-        """
-        if len(num_request) < 2:
-            return num_request
-        else:
-            pivot = num_request[0]
-            lower = [i for i in num_request[1:] if i <= pivot]
-            greater = [i for i in num_request[1:] if i > pivot]
-            return self.order_quick(lower) + [pivot] + self.order_quick(greater)
-
 
 if __name__ == '__main__':
     main()
