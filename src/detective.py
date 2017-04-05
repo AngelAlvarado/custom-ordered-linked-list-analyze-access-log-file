@@ -7,7 +7,7 @@ from pytz import timezone
 
 def main():
     """
-    args ./log_input/log.txt ./log_output/hosts.txt ./log_output/hours.txt ./log_output/resources.txt ./log_output/blocked.txt
+    args ./log_input/log.txt ./log_output/hosts.txt ./log_output/resources.txt ./log_output/hours.txt ./log_output/blocked.txt
     """
     hosts = open(sys.argv[2], 'w')
     hours = open(sys.argv[3], 'w')
@@ -15,7 +15,7 @@ def main():
     blocked = open(sys.argv[5], 'w')
     events = open('../log_output/event-log.txt', 'w')
     error = open('../log_output/error-log.txt', 'w')
-    warningshttp = open(sys.argv[8], 'w')
+    warningshttp = open('../log_output/warning-protocol-log.txt', 'w')
     # Reads log file
     requests = open(sys.argv[1], 'r')
     try:
