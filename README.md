@@ -102,12 +102,13 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 ##Testing
 
-`./insight_testsuite/run_tests.sh`
+`$ ./insight_testsuite/run_tests.sh`
 
 ##Personal notes
 
 * Using regular Python hash tables to hold data from log file
 * Using a custom ordered linked list for feature 1, feature 2, feature 3 and feature 4
+* At this point feature 3 does not pass the basic test due a misunderstanding on my side of the original requirements.
 * Alternatively, I was tempted to use Python collections, dictionaries and numpy to sort data easily. However, custom Data Structures are provided
 
 
