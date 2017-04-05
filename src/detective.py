@@ -10,8 +10,8 @@ def main():
     args ./log_input/log.txt ./log_output/hosts.txt ./log_output/resources.txt ./log_output/hours.txt ./log_output/blocked.txt
     """
     hosts = open(sys.argv[2], 'w')
-    hours = open(sys.argv[3], 'w')
-    resources = open(sys.argv[4], 'w')
+    resources = open(sys.argv[3], 'w')
+    hours = open(sys.argv[4], 'w')
     blocked = open(sys.argv[5], 'w')
     events = open('../log_output/event-log.txt', 'w')
     error = open('../log_output/error-log.txt', 'w')
@@ -21,7 +21,6 @@ def main():
     try:
         print(time.strftime('[%Y-%m-%d %H:%M:%S%z]'), 'Initializing Analysis ')
         events.write(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + 'Initializing Analysis \n')
-
         data_structure = Structure(requests, hosts, resources, hours, blocked)
         data_structure.generate_linked_list_hosts()
         data_structure.generate_linked_list_resources()
@@ -145,8 +144,8 @@ class OrderListHours(OrderedList):
         while self.cursor is not None:
 
             date_event = datetime.fromtimestamp(self.cursor.domain, timezone('US/Eastern'))
-            string += '{},{}\n'.format(date_event.strftime("%d/%m/%Y %H:%M:%S -0400"), self.cursor.requests)
-            print('{},{}'.format(date_event.strftime("%d/%m/%Y %H:%M:%S -0400"), self.cursor.requests))
+            string += '{},{}\n'.format(date_event.strftime("%d/%b/%Y:%H:%M:%S -0400"), self.cursor.requests)
+            print('{},{}'.format(date_event.strftime("%d/%b/%Y:%H:%M:%S -0400"), self.cursor.requests))
             # move cursor to next item
             self.cursor = self.cursor.next
             i += 1
@@ -212,7 +211,7 @@ class Structure:
                 else:
                     self.resources_hash[resource_name] += byts
 
-                # 3rd feature.
+                # 4th feature.
                 if ip_name not in self.blocked_new_requests_from:
                     # initialize requests for new IPs
                     self.blocked_new_requests_from[ip_name] = False
@@ -251,9 +250,9 @@ class Structure:
                         and (ip_name in self.blocked_last_request and (
                             timestamp - self.blocked_last_request[ip_name]) <= 300) \
                         and ip_name in self.blocked_counter:
-                    if self.blocked_counter[ip_name] >= 3:
-                        print(' '.join(map(str, row)))
-                        self.blocked_file.write(' '.join(map(str, row)) + '\n')
+                    if self.blocked_counter[ip_name] > 3:
+                        print(line)
+                        self.blocked_file.write(line)
                 elif (self.blocked_new_requests_from[ip_name] is True and
                         (timestamp - self.blocked_last_request[ip_name]) > 300) or \
                         (resource_name == '/login' and row[-2] == "200"):
@@ -266,7 +265,7 @@ class Structure:
                     if ip_name in self.blocked_first_request:
                         del self.blocked_first_request[ip_name]
 
-                # 4th feature
+                # 3rd feature
                 current_date = line.split("[")[1].split("]")[0]
                 date_event = datetime.strptime(current_date, "%d/%b/%Y:%H:%M:%S %z")
                 timestamp = date_event.timestamp()
