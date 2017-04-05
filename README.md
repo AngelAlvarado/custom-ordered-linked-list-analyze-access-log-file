@@ -6,7 +6,6 @@
 * [Personal Notes](README.md#personal-notes)
 * [UML](README.md#basic-uml)
 * [Event and Error Log files](README.md#log)
-* [UML](README.md#basic-uml)
 * [Sanitizing data](README.md#sanitizing-data)
 * [Testing](README.md#sanitizing-data)
 * [Personal notes](README.md#sanitizing-data)
@@ -31,7 +30,7 @@ This code includes a test suite which can be use running:
 
 ### Parameters
 
- `run.sh` expects 5 parameters which are files. If parameters are not specified will be searched inside the ./log_output or ./log_input folder:
+ `run.sh` expects 5 parameters which are files. If parameters are not specified default ones will be used
 
  * **./log_input/log.txt**. HTTP server log file with the following contents:
     * *host* making the request. A hostname when possible, otherwise the Internet address if the name could not be looked up.
@@ -64,7 +63,7 @@ python: 3.5.1.final.0
 
 ## Goal in my code
 
-This library creates a custom ordered linked list to satisfice the following features.
+This library uses Python dictionaries and uses a custom ordered linked list to satisfy the following features.
 
 ### Feature 1
 
@@ -90,8 +89,7 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 ## Log
 
-@see ./log_output/results.txt` file for ìmportant events
-@todo separate event and error log files
+@see ./log_output/event-log.txt` file for important events
 
 ## Sanitizing data
 
@@ -109,9 +107,8 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 ##Personal notes
 
 * Using regular Python hash tables to hold data from log file
-* Using a custom ordered linked list for feature 1 and feature 2
-* At this point f3 and f4 are not solved
-* Alternatively, I was tempted to use Python collections and sort dictionaries (see comment and commit X)
+* Using a custom ordered linked list for feature 1, feature 2, feature 3 and feature 4
+* Alternatively, I was tempted to use Python collections, dictionaries and numpy to sort data easily. However, custom Data Structures are provided
 
 
 ## References
