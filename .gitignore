@@ -3,4 +3,5 @@
 ./log_output/hosts.txt
 ./log_output/resources.txt
 ./log_output/hours.txt
-./insight_testsuite
+./insight_testsuite/temp
+./insight_testsuite/results.txt

@@ -4,7 +4,6 @@
 * [Requirements](README.md#requirements)
 * [My goals and features](README.md#goal-in-my-code)
 * [Personal Notes](README.md#personal-notes)
-* [UML](README.md#basic-uml)
 * [Event and Error Log files](README.md#log)
 * [Sanitizing data](README.md#sanitizing-data)
 * [Testing](README.md#sanitizing-data)
@@ -80,12 +79,6 @@ List the top 10 busiest (or most frequently visited) 60-minute periods
 ### Feature 4
 
 Detect patterns of three failed login attempts from the same IP address over 20 seconds so that all further attempts to the site can be blocked for 5 minutes. Log those possible security breaches.
-
-## Basic UML
-
-Basic UML sequence diagrams created via PlantUML in order to make them version-able.
-@see ./features/uml/*.puml
-@todo upload this part
 
 ## Log
 
