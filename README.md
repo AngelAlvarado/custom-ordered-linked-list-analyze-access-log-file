@@ -22,7 +22,7 @@ or with custom parameters
 `$ ./run.sh ./log_input/log.txt ./log_output/hosts.txt ./log_output/hours.txt ./log_output/resources.txt ./log_output/blocked.txt`
 
 
-This code includes a test suite which can be use running:
+This code includes a test suite which can be used running:
 
 `$ cd ./insight_testsuite execute`
 
@@ -95,7 +95,7 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 * run.sh will take care of cleaning the HTTP log file.
 
-    * *why?* Optionally we could assume the input log file has a specific charset (such as ASCII or UTF-8) but what if the charset is not respected? (Requests could have weird characters if not sanitized beforehand ). This will avoid Python exceptions.
+    * *why?* Optionally we could assume the input log file has a specific charset (such as ASCII or UTF-8) but what if the charset is not respected? (Requests could have weird characters if not sanitized beforehand). This will avoid Python exceptions.
 
 * Optionally lines in file will be reported into *./log_output/results.txt* @todo missing this.
 
@@ -108,7 +108,7 @@ Basic UML sequence diagrams created via PlantUML in order to make them version-a
 
 * Using regular Python hash tables to hold data from log file.
 * Using a custom ordered linked list for feature 1, feature 2, feature 3 and feature 4.
-* At this point feature 3 does not pass the basic test due a misunderstanding on my side of the original requirements.
+* At this point feature 3 does not pass the basic test due to a misunderstanding on my side of the original requirements.
 * Alternatively, I was tempted to use Python collections, dictionaries and numpy (removed in this [commit](https://github.com/AngelAlvarado/custom-linked-list-analyze-log-file/commit/4f22b739b7594b58a70900d8bcd2ab6f42b06661) to sort data easily. However, custom Data Structures are provided.
 
 ## References
