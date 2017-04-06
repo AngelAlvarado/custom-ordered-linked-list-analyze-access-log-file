@@ -1,14 +1,14 @@
 # Table of Contents
 
 * [How to use](README.md#how-to-use)
-* [Requirements](README.md#requirements)
 * [My goals and features](README.md#goal-in-my-code)
+* [Requirements](README.md#requirements)
 * [Personal Notes](README.md#personal-notes)
 * [Event and Error Log files](README.md#log)
 * [Sanitizing data](README.md#sanitizing-data)
 * [Testing](README.md#sanitizing-data)
 * [Personal notes](README.md#sanitizing-data)
-* [TODOS](README.md#future-ideas)
+* [TODOS](README.md#todos)
 
 ## How to use
 
@@ -82,7 +82,7 @@ Detect patterns of three failed login attempts from the same IP address over 20 
 
 ## Log
 
-@see ./log_output/event-log.txt` file for important events
+@see `./log_output/event-log.txt` file for important events
 
 ## Sanitizing data
 
@@ -90,7 +90,7 @@ Detect patterns of three failed login attempts from the same IP address over 20 
 
     * *why?* Optionally we could assume the input log file has a specific charset (such as ASCII or UTF-8) but what if the charset is not respected? (Requests could have weird characters if not sanitized beforehand). This will avoid Python exceptions.
 
-* Optionally lines in file will be reported into *./log_output/results.txt* @todo missing this.
+* Optionally lines with non-ascii characters will be reported into *./log_output/error-log.txt* @todo missing this.
 
 
 ## Testing
@@ -104,3 +104,6 @@ Detect patterns of three failed login attempts from the same IP address over 20 
 * At this point feature 3 does not pass the basic test due to a misunderstanding on my side of the original requirements.
 * Alternatively, I was tempted to use Python collections, dictionaries and numpy (removed in this [commit](https://github.com/AngelAlvarado/custom-linked-list-analyze-log-file/commit/4f22b739b7594b58a70900d8bcd2ab6f42b06661) to sort data easily. However, custom Data Structures are provided.
 
+## TODOS
+
+Along the Python script I documented possible features which have to be documented here.
