@@ -82,7 +82,7 @@ Detect patterns of three failed login attempts from the same IP address over 20 
 
 ## Log
 
-@see `./log_output/event-log.txt` file for important events
+@see ./log_output/event-log.txt` file for important events
 
 ## Sanitizing data
 
@@ -101,7 +101,6 @@ Detect patterns of three failed login attempts from the same IP address over 20 
 
 * Using regular Python hash tables to hold data from log file.
 * Using a custom ordered linked list for feature 1, feature 2, feature 3 and feature 4.
-* At this point feature 3 does not pass the basic test due to a misunderstanding on my side of the original requirements.
 * Alternatively, I was tempted to use Python collections, dictionaries and numpy (removed in this [commit](https://github.com/AngelAlvarado/custom-linked-list-analyze-log-file/commit/4f22b739b7594b58a70900d8bcd2ab6f42b06661) to sort data easily. However, custom Data Structures are provided.
 
 ## TODOS
