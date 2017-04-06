@@ -53,7 +53,7 @@ This code includes a test suite which can be used running:
 
 ## Requirements
 
-In order to run this code you need the follwing libraries
+In order to run this code you need the following libraries:
 
 ```
 iconv:  1.11
@@ -103,11 +103,4 @@ Detect patterns of three failed login attempts from the same IP address over 20 
 * Using a custom ordered linked list for feature 1, feature 2, feature 3 and feature 4.
 * At this point feature 3 does not pass the basic test due to a misunderstanding on my side of the original requirements.
 * Alternatively, I was tempted to use Python collections, dictionaries and numpy (removed in this [commit](https://github.com/AngelAlvarado/custom-linked-list-analyze-log-file/commit/4f22b739b7594b58a70900d8bcd2ab6f42b06661) to sort data easily. However, custom Data Structures are provided.
-
-## References
-
-
-## Future ideas
-
-I have several @todos in the code and they are explained here:
 
