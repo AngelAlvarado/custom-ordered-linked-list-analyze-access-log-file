@@ -13,6 +13,8 @@ def main():
     resources = open(sys.argv[3], 'w')
     hours = open(sys.argv[4], 'w')
     blocked = open(sys.argv[5], 'w')
+    # This variable will help to only iterate the whole file only once at the Python level
+    total_number_from_bash = int(sys.argv[6])
     events = open('../log_output/event-log.txt', 'w')
     error = open('../log_output/error-log.txt', 'w')
     warningshttp = open('../log_output/warning-protocol-log.txt', 'w')
@@ -21,7 +23,7 @@ def main():
     try:
         print(time.strftime('[%Y-%m-%d %H:%M:%S%z]'), 'Initializing Analysis ')
         events.write(time.strftime('[%Y-%m-%d %H:%M:%S%z]') + 'Initializing Analysis \n')
-        data_structure = Structure(requests, hosts, resources, hours, blocked)
+        data_structure = Structure(requests, hosts, resources, hours, blocked, total_number_from_bash)
         data_structure.generate_linked_list_hosts()
         data_structure.generate_linked_list_resources()
         data_structure.generate_linked_list_hours()
@@ -77,7 +79,7 @@ class OrderedList:
                         break
                     else:
                         # keep asking till we find its position
-                        if self.cursor.next.requests <= node.requests:
+                        if self.cursor.next.requests < node.requests:
                             # save a temporary connection to the next node
                             node_temp = self.cursor.next
                             # place the node in its corresponded position
@@ -125,7 +127,6 @@ class OrderListResources(OrderedList):
             string += '{}\n'.format(self.cursor.domain)
             print('{}'.format(self.cursor.domain))
 
-
             # move cursor to next item
             self.cursor = self.cursor.next
             i += 1
@@ -145,12 +146,13 @@ class OrderListHours(OrderedList):
 
             date_event = datetime.fromtimestamp(self.cursor.domain, timezone('US/Eastern'))
             string += '{},{}\n'.format(date_event.strftime("%d/%b/%Y:%H:%M:%S -0400"), self.cursor.requests)
-            print('{},{}'.format(date_event.strftime("%d/%b/%Y:%H:%M:%S -0400"), self.cursor.requests))
             # move cursor to next item
             self.cursor = self.cursor.next
             i += 1
             if i > self.total_number_items_display:
+                print(string)
                 return string
+
         return string
 
 
@@ -166,10 +168,8 @@ class Structure:
     hosts_hash = {}
     resources_hash = {}
     hours_hash = {}
-    # temporary solution to avoid analyzing huge files
-    times = 0
 
-    def __init__(self, requests, hosts, resources, hours, blocked):
+    def __init__(self, requests, hosts, resources, hours, blocked, total_number_from_bash):
         """
         Reads file and generates dictionaries with data needed for custom Data Structures.
         :param requests:
@@ -183,6 +183,14 @@ class Structure:
         self.blocked_new_requests_from = {}
         self.blocked_last_request = {}
         self.hours_hash = {}
+
+        self.line_number = 1
+        # This variable will help to only iterate the whole file only once at the Python level
+        self.total_number_from_bash = total_number_from_bash
+        self.fill_dict_with_original_data = {}
+        self.first_line = ''
+        self.last_line = ''
+        self.temporary_dict_hold_date = {}
 
         for line in requests:
             try:
@@ -266,19 +274,19 @@ class Structure:
                         del self.blocked_first_request[ip_name]
 
                 # 3rd feature
+                if self.line_number == 1:
+                    self.first_line = line
+                if self.line_number == self.total_number_from_bash:
+                    self.last_line = line
+                self.line_number += 1
+
                 current_date = line.split("[")[1].split("]")[0]
                 date_event = datetime.strptime(current_date, "%d/%b/%Y:%H:%M:%S %z")
-                timestamp = date_event.timestamp()
-                if timestamp not in self.hours_hash:
-                    self.hours_hash[timestamp] = 0
-                for key in self.hours_hash:
-                    # Computing intensive this will make the program take a long time if input is big.
-                    c = timestamp - key
-                    if c <= 3600.0:
-                        self.hours_hash[key] += 1
-                if self.times >= 2000:
-                    break
-                self.times += 1
+                timestamp_current_request = date_event.timestamp()
+                if timestamp_current_request not in self.fill_dict_with_original_data:
+                    self.fill_dict_with_original_data[int(timestamp_current_request)] = 1
+                else:
+                    self.fill_dict_with_original_data[int(timestamp_current_request)] += 1
 
             except UnicodeEncodeError:
                 print('UnicodeEncodeError')
@@ -308,8 +316,24 @@ class Structure:
         Generates ordered linked list and prints out values into hosts file
         :return: void
         """
-        for domain, resource in self.hours_hash.items():
-            self.ordered_linked_list_hours.insert_ordered_node(Node(resource, domain))
+        date_first_event = datetime.strptime(self.first_line.split("[")[1].split("]")[0], "%d/%b/%Y:%H:%M:%S %z")
+        date_last_event = datetime.strptime(self.last_line.split("[")[1].split("]")[0], "%d/%b/%Y:%H:%M:%S %z")
+        timestamp_first_event = date_first_event.timestamp()
+        timestamp_last_event = date_last_event.timestamp()
+        for i in range(int(timestamp_first_event), int(timestamp_last_event) + 1, 1):
+            self.temporary_dict_hold_date[i] = 0
+        for time_window, v in self.temporary_dict_hold_date.items():
+            # if time_window in fill_dict_with_original_data: -> I don't need this because I want all the time windows
+            total_requests = 0
+            for second_inside_time_window in range(int(time_window), int(time_window) + 3600, 1):
+                if second_inside_time_window in self.fill_dict_with_original_data and second_inside_time_window in self.temporary_dict_hold_date:
+                    # this means a request was made in this specific time window
+                    total_requests += self.fill_dict_with_original_data[second_inside_time_window]
+            self.temporary_dict_hold_date[time_window] = total_requests
+
+        for time_window, v in self.temporary_dict_hold_date.items():
+            if v is not 0:
+                self.ordered_linked_list_hours.insert_ordered_node(Node(v, time_window))
         self.hours_file.write(self.ordered_linked_list_hours.print_list())
 
     @staticmethod

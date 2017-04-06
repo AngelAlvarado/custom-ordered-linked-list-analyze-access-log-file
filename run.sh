@@ -31,6 +31,8 @@ echo $log_utf8_filename
 echo "[$(date)] Starting Fixing encoding raw data.." >> ../log_output/event-log.txt
 iconv -f ascii -t utf-8//TRANSLIT -c $log > $log_utf8_filename
 echo "[$(date)] Finished cleaning batch data.." >> ../log_output/event-log.txt
+# This variable will help to only iterate the whole file only once at the Python level
+lastlinenumber=$(wc -l $log_utf8_filename | awk '{print $1}')
 
-python ../src/detective.py $log_utf8_filename $hosts $resources $hours $blocked
+python ../src/detective.py $log_utf8_filename $hosts $resources $hours $blocked $lastlinenumber
 
